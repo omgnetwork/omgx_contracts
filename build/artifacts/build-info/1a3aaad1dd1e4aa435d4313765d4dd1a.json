@@ -1,0 +1,858 @@
+{
+  "id": "1a3aaad1dd1e4aa435d4313765d4dd1a",
+  "_format": "hh-sol-build-info-1",
+  "solcVersion": "0.7.6",
+  "solcLongVersion": "0.7.6+commit.7338295f",
+  "input": {
+    "language": "Solidity",
+    "sources": {
+      "contracts/test-helpers/Helper_GasMeasurer.sol": {
+        "content": "// SPDX-License-Identifier: UNLICENSED\n// SPDX-License-Identifier: MIT\npragma solidity >0.5.0 <0.8.0;\n\ncontract Helper_GasMeasurer {\n    function measureCallGas(\n        address _target,\n        bytes memory _data\n    )\n        public\n        returns ( uint256 )\n    {\n        uint256 gasBefore;\n        uint256 gasAfter;\n\n        uint256 calldataStart;\n        uint256 calldataLength;\n        assembly {\n            calldataStart := add(_data,0x20)\n            calldataLength := mload(_data)\n        }\n\n        bool success;\n        assembly {\n            gasBefore := gas()\n            success := call(gas(), _target, 0, calldataStart, calldataLength, 0, 0)\n            gasAfter := gas()\n        }\n        require(success, \"Call failed, but calls we want to measure gas for should succeed!\");\n\n        return gasBefore - gasAfter;\n    }\n}\n"
+      }
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "none",
+        "useLiteralContent": true
+      },
+      "outputSelection": {
+        "*": {
+          "*": [
+            "storageLayout",
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata",
+            "devdoc",
+            "userdoc",
+            "evm.gasEstimates"
+          ],
+          "": [
+            "ast"
+          ]
+        }
+      }
+    }
+  },
+  "output": {
+    "contracts": {
+      "contracts/test-helpers/Helper_GasMeasurer.sol": {
+        "Helper_GasMeasurer": {
+          "abi": [
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_target",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "_data",
+                  "type": "bytes"
+                }
+              ],
+              "name": "measureCallGas",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            }
+          ],
+          "devdoc": {
+            "kind": "dev",
+            "methods": {},
+            "version": 1
+          },
+          "evm": {
+            "bytecode": {
+              "generatedSources": [],
+              "linkReferences": {},
+              "object": "608060405234801561001057600080fd5b506101af806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063df0495a114610030575b600080fd5b6100e66004803603604081101561004657600080fd5b6001600160a01b03823516919081019060408101602082013564010000000081111561007157600080fd5b82018360208201111561008357600080fd5b803590602001918460018302840111640100000000831117156100a557600080fd5b91908080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152509295506100f8945050505050565b60408051918252519081900360200190f35b8051600090819081906020850190825a9450600080838560008c5af190505a9350806101555760405162461bcd60e51b81526004018080602001828103825260418152602001806101626041913960600191505060405180910390fd5b5050509003939250505056fe43616c6c206661696c65642c206275742063616c6c732077652077616e7420746f206d6561737572652067617320666f722073686f756c64207375636365656421a164736f6c6343000706000a",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x1AF DUP1 PUSH2 0x20 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x2B JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0xDF0495A1 EQ PUSH2 0x30 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0xE6 PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x40 DUP2 LT ISZERO PUSH2 0x46 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP3 CALLDATALOAD AND SWAP2 SWAP1 DUP2 ADD SWAP1 PUSH1 0x40 DUP2 ADD PUSH1 0x20 DUP3 ADD CALLDATALOAD PUSH5 0x100000000 DUP2 GT ISZERO PUSH2 0x71 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP3 ADD DUP4 PUSH1 0x20 DUP3 ADD GT ISZERO PUSH2 0x83 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP2 DUP5 PUSH1 0x1 DUP4 MUL DUP5 ADD GT PUSH5 0x100000000 DUP4 GT OR ISZERO PUSH2 0xA5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 DUP1 DUP1 PUSH1 0x1F ADD PUSH1 0x20 DUP1 SWAP2 DIV MUL PUSH1 0x20 ADD PUSH1 0x40 MLOAD SWAP1 DUP2 ADD PUSH1 0x40 MSTORE DUP1 SWAP4 SWAP3 SWAP2 SWAP1 DUP2 DUP2 MSTORE PUSH1 0x20 ADD DUP4 DUP4 DUP1 DUP3 DUP5 CALLDATACOPY PUSH1 0x0 SWAP3 ADD SWAP2 SWAP1 SWAP2 MSTORE POP SWAP3 SWAP6 POP PUSH2 0xF8 SWAP5 POP POP POP POP POP JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD SWAP2 DUP3 MSTORE MLOAD SWAP1 DUP2 SWAP1 SUB PUSH1 0x20 ADD SWAP1 RETURN JUMPDEST DUP1 MLOAD PUSH1 0x0 SWAP1 DUP2 SWAP1 DUP2 SWAP1 PUSH1 0x20 DUP6 ADD SWAP1 DUP3 GAS SWAP5 POP PUSH1 0x0 DUP1 DUP4 DUP6 PUSH1 0x0 DUP13 GAS CALL SWAP1 POP GAS SWAP4 POP DUP1 PUSH2 0x155 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x41 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH2 0x162 PUSH1 0x41 SWAP2 CODECOPY PUSH1 0x60 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST POP POP POP SWAP1 SUB SWAP4 SWAP3 POP POP POP JUMP INVALID NUMBER PUSH2 0x6C6C KECCAK256 PUSH7 0x61696C65642C20 PUSH3 0x757420 PUSH4 0x616C6C73 KECCAK256 PUSH24 0x652077616E7420746F206D6561737572652067617320666F PUSH19 0x2073686F756C64207375636365656421A16473 PUSH16 0x6C6343000706000A0000000000000000 ",
+              "sourceMap": "103:737:0:-:0;;;;;;;;;;;;;;;;;;;"
+            },
+            "deployedBytecode": {
+              "generatedSources": [],
+              "immutableReferences": {},
+              "linkReferences": {},
+              "object": "608060405234801561001057600080fd5b506004361061002b5760003560e01c8063df0495a114610030575b600080fd5b6100e66004803603604081101561004657600080fd5b6001600160a01b03823516919081019060408101602082013564010000000081111561007157600080fd5b82018360208201111561008357600080fd5b803590602001918460018302840111640100000000831117156100a557600080fd5b91908080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152509295506100f8945050505050565b60408051918252519081900360200190f35b8051600090819081906020850190825a9450600080838560008c5af190505a9350806101555760405162461bcd60e51b81526004018080602001828103825260418152602001806101626041913960600191505060405180910390fd5b5050509003939250505056fe43616c6c206661696c65642c206275742063616c6c732077652077616e7420746f206d6561737572652067617320666f722073686f756c64207375636365656421a164736f6c6343000706000a",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x2B JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0xDF0495A1 EQ PUSH2 0x30 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0xE6 PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x40 DUP2 LT ISZERO PUSH2 0x46 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP3 CALLDATALOAD AND SWAP2 SWAP1 DUP2 ADD SWAP1 PUSH1 0x40 DUP2 ADD PUSH1 0x20 DUP3 ADD CALLDATALOAD PUSH5 0x100000000 DUP2 GT ISZERO PUSH2 0x71 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP3 ADD DUP4 PUSH1 0x20 DUP3 ADD GT ISZERO PUSH2 0x83 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP2 DUP5 PUSH1 0x1 DUP4 MUL DUP5 ADD GT PUSH5 0x100000000 DUP4 GT OR ISZERO PUSH2 0xA5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 DUP1 DUP1 PUSH1 0x1F ADD PUSH1 0x20 DUP1 SWAP2 DIV MUL PUSH1 0x20 ADD PUSH1 0x40 MLOAD SWAP1 DUP2 ADD PUSH1 0x40 MSTORE DUP1 SWAP4 SWAP3 SWAP2 SWAP1 DUP2 DUP2 MSTORE PUSH1 0x20 ADD DUP4 DUP4 DUP1 DUP3 DUP5 CALLDATACOPY PUSH1 0x0 SWAP3 ADD SWAP2 SWAP1 SWAP2 MSTORE POP SWAP3 SWAP6 POP PUSH2 0xF8 SWAP5 POP POP POP POP POP JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD SWAP2 DUP3 MSTORE MLOAD SWAP1 DUP2 SWAP1 SUB PUSH1 0x20 ADD SWAP1 RETURN JUMPDEST DUP1 MLOAD PUSH1 0x0 SWAP1 DUP2 SWAP1 DUP2 SWAP1 PUSH1 0x20 DUP6 ADD SWAP1 DUP3 GAS SWAP5 POP PUSH1 0x0 DUP1 DUP4 DUP6 PUSH1 0x0 DUP13 GAS CALL SWAP1 POP GAS SWAP4 POP DUP1 PUSH2 0x155 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x41 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH2 0x162 PUSH1 0x41 SWAP2 CODECOPY PUSH1 0x60 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST POP POP POP SWAP1 SUB SWAP4 SWAP3 POP POP POP JUMP INVALID NUMBER PUSH2 0x6C6C KECCAK256 PUSH7 0x61696C65642C20 PUSH3 0x757420 PUSH4 0x616C6C73 KECCAK256 PUSH24 0x652077616E7420746F206D6561737572652067617320666F PUSH19 0x2073686F756C64207375636365656421A16473 PUSH16 0x6C6343000706000A0000000000000000 ",
+              "sourceMap": "103:737:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;137:701;;;;;;;;;;;;;;;;-1:-1:-1;;;;;137:701:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;137:701:0;;-1:-1:-1;137:701:0;;-1:-1:-1;;;;;137:701:0:i;:::-;;;;;;;;;;;;;;;;;480:12;;253:7;;;;;;444:4;434:15;;;253:7;570:5;557:18;;657:1;654;638:14;623:13;620:1;611:7;604:5;599:60;588:71;;684:5;672:17;;716:7;708:85;;;;-1:-1:-1;;;708:85:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;811:20:0;;;137:701;-1:-1:-1;;;137:701:0:o"
+            },
+            "gasEstimates": {
+              "creation": {
+                "codeDepositCost": "86200",
+                "executionCost": "135",
+                "totalCost": "86335"
+              },
+              "external": {
+                "measureCallGas(address,bytes)": "infinite"
+              }
+            },
+            "methodIdentifiers": {
+              "measureCallGas(address,bytes)": "df0495a1"
+            }
+          },
+          "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_target\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"measureCallGas\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/test-helpers/Helper_GasMeasurer.sol\":\"Helper_GasMeasurer\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/test-helpers/Helper_GasMeasurer.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// SPDX-License-Identifier: MIT\\npragma solidity >0.5.0 <0.8.0;\\n\\ncontract Helper_GasMeasurer {\\n    function measureCallGas(\\n        address _target,\\n        bytes memory _data\\n    )\\n        public\\n        returns ( uint256 )\\n    {\\n        uint256 gasBefore;\\n        uint256 gasAfter;\\n\\n        uint256 calldataStart;\\n        uint256 calldataLength;\\n        assembly {\\n            calldataStart := add(_data,0x20)\\n            calldataLength := mload(_data)\\n        }\\n\\n        bool success;\\n        assembly {\\n            gasBefore := gas()\\n            success := call(gas(), _target, 0, calldataStart, calldataLength, 0, 0)\\n            gasAfter := gas()\\n        }\\n        require(success, \\\"Call failed, but calls we want to measure gas for should succeed!\\\");\\n\\n        return gasBefore - gasAfter;\\n    }\\n}\\n\",\"keccak256\":\"0x6c4f902e512b781ab479eff169d0b53b46a8f8580f384995561babdb1e118274\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+          "storageLayout": {
+            "storage": [],
+            "types": null
+          },
+          "userdoc": {
+            "kind": "user",
+            "methods": {},
+            "version": 1
+          }
+        }
+      }
+    },
+    "sources": {
+      "contracts/test-helpers/Helper_GasMeasurer.sol": {
+        "ast": {
+          "absolutePath": "contracts/test-helpers/Helper_GasMeasurer.sol",
+          "exportedSymbols": {
+            "Helper_GasMeasurer": [
+              38
+            ]
+          },
+          "id": 39,
+          "license": "UNLICENSED",
+          "nodeType": "SourceUnit",
+          "nodes": [
+            {
+              "id": 1,
+              "literals": [
+                "solidity",
+                ">",
+                "0.5",
+                ".0",
+                "<",
+                "0.8",
+                ".0"
+              ],
+              "nodeType": "PragmaDirective",
+              "src": "71:30:0"
+            },
+            {
+              "abstract": false,
+              "baseContracts": [],
+              "contractDependencies": [],
+              "contractKind": "contract",
+              "fullyImplemented": true,
+              "id": 38,
+              "linearizedBaseContracts": [
+                38
+              ],
+              "name": "Helper_GasMeasurer",
+              "nodeType": "ContractDefinition",
+              "nodes": [
+                {
+                  "body": {
+                    "id": 36,
+                    "nodeType": "Block",
+                    "src": "267:571:0",
+                    "statements": [
+                      {
+                        "assignments": [
+                          11
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 11,
+                            "mutability": "mutable",
+                            "name": "gasBefore",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 36,
+                            "src": "277:17:0",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "typeName": {
+                              "id": 10,
+                              "name": "uint256",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "277:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 12,
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "277:17:0"
+                      },
+                      {
+                        "assignments": [
+                          14
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 14,
+                            "mutability": "mutable",
+                            "name": "gasAfter",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 36,
+                            "src": "304:16:0",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "typeName": {
+                              "id": 13,
+                              "name": "uint256",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "304:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 15,
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "304:16:0"
+                      },
+                      {
+                        "assignments": [
+                          17
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 17,
+                            "mutability": "mutable",
+                            "name": "calldataStart",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 36,
+                            "src": "331:21:0",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "typeName": {
+                              "id": 16,
+                              "name": "uint256",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "331:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 18,
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "331:21:0"
+                      },
+                      {
+                        "assignments": [
+                          20
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 20,
+                            "mutability": "mutable",
+                            "name": "calldataLength",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 36,
+                            "src": "362:22:0",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "typeName": {
+                              "id": 19,
+                              "name": "uint256",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "362:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 21,
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "362:22:0"
+                      },
+                      {
+                        "AST": {
+                          "nodeType": "YulBlock",
+                          "src": "403:99:0",
+                          "statements": [
+                            {
+                              "nodeType": "YulAssignment",
+                              "src": "417:32:0",
+                              "value": {
+                                "arguments": [
+                                  {
+                                    "name": "_data",
+                                    "nodeType": "YulIdentifier",
+                                    "src": "438:5:0"
+                                  },
+                                  {
+                                    "kind": "number",
+                                    "nodeType": "YulLiteral",
+                                    "src": "444:4:0",
+                                    "type": "",
+                                    "value": "0x20"
+                                  }
+                                ],
+                                "functionName": {
+                                  "name": "add",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "434:3:0"
+                                },
+                                "nodeType": "YulFunctionCall",
+                                "src": "434:15:0"
+                              },
+                              "variableNames": [
+                                {
+                                  "name": "calldataStart",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "417:13:0"
+                                }
+                              ]
+                            },
+                            {
+                              "nodeType": "YulAssignment",
+                              "src": "462:30:0",
+                              "value": {
+                                "arguments": [
+                                  {
+                                    "name": "_data",
+                                    "nodeType": "YulIdentifier",
+                                    "src": "486:5:0"
+                                  }
+                                ],
+                                "functionName": {
+                                  "name": "mload",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "480:5:0"
+                                },
+                                "nodeType": "YulFunctionCall",
+                                "src": "480:12:0"
+                              },
+                              "variableNames": [
+                                {
+                                  "name": "calldataLength",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "462:14:0"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "evmVersion": "istanbul",
+                        "externalReferences": [
+                          {
+                            "declaration": 5,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "438:5:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 5,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "486:5:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 20,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "462:14:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 17,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "417:13:0",
+                            "valueSize": 1
+                          }
+                        ],
+                        "id": 22,
+                        "nodeType": "InlineAssembly",
+                        "src": "394:108:0"
+                      },
+                      {
+                        "assignments": [
+                          24
+                        ],
+                        "declarations": [
+                          {
+                            "constant": false,
+                            "id": 24,
+                            "mutability": "mutable",
+                            "name": "success",
+                            "nodeType": "VariableDeclaration",
+                            "scope": 36,
+                            "src": "512:12:0",
+                            "stateVariable": false,
+                            "storageLocation": "default",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bool",
+                              "typeString": "bool"
+                            },
+                            "typeName": {
+                              "id": 23,
+                              "name": "bool",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "512:4:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              }
+                            },
+                            "visibility": "internal"
+                          }
+                        ],
+                        "id": 25,
+                        "nodeType": "VariableDeclarationStatement",
+                        "src": "512:12:0"
+                      },
+                      {
+                        "AST": {
+                          "nodeType": "YulBlock",
+                          "src": "543:156:0",
+                          "statements": [
+                            {
+                              "nodeType": "YulAssignment",
+                              "src": "557:18:0",
+                              "value": {
+                                "arguments": [],
+                                "functionName": {
+                                  "name": "gas",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "570:3:0"
+                                },
+                                "nodeType": "YulFunctionCall",
+                                "src": "570:5:0"
+                              },
+                              "variableNames": [
+                                {
+                                  "name": "gasBefore",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "557:9:0"
+                                }
+                              ]
+                            },
+                            {
+                              "nodeType": "YulAssignment",
+                              "src": "588:71:0",
+                              "value": {
+                                "arguments": [
+                                  {
+                                    "arguments": [],
+                                    "functionName": {
+                                      "name": "gas",
+                                      "nodeType": "YulIdentifier",
+                                      "src": "604:3:0"
+                                    },
+                                    "nodeType": "YulFunctionCall",
+                                    "src": "604:5:0"
+                                  },
+                                  {
+                                    "name": "_target",
+                                    "nodeType": "YulIdentifier",
+                                    "src": "611:7:0"
+                                  },
+                                  {
+                                    "kind": "number",
+                                    "nodeType": "YulLiteral",
+                                    "src": "620:1:0",
+                                    "type": "",
+                                    "value": "0"
+                                  },
+                                  {
+                                    "name": "calldataStart",
+                                    "nodeType": "YulIdentifier",
+                                    "src": "623:13:0"
+                                  },
+                                  {
+                                    "name": "calldataLength",
+                                    "nodeType": "YulIdentifier",
+                                    "src": "638:14:0"
+                                  },
+                                  {
+                                    "kind": "number",
+                                    "nodeType": "YulLiteral",
+                                    "src": "654:1:0",
+                                    "type": "",
+                                    "value": "0"
+                                  },
+                                  {
+                                    "kind": "number",
+                                    "nodeType": "YulLiteral",
+                                    "src": "657:1:0",
+                                    "type": "",
+                                    "value": "0"
+                                  }
+                                ],
+                                "functionName": {
+                                  "name": "call",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "599:4:0"
+                                },
+                                "nodeType": "YulFunctionCall",
+                                "src": "599:60:0"
+                              },
+                              "variableNames": [
+                                {
+                                  "name": "success",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "588:7:0"
+                                }
+                              ]
+                            },
+                            {
+                              "nodeType": "YulAssignment",
+                              "src": "672:17:0",
+                              "value": {
+                                "arguments": [],
+                                "functionName": {
+                                  "name": "gas",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "684:3:0"
+                                },
+                                "nodeType": "YulFunctionCall",
+                                "src": "684:5:0"
+                              },
+                              "variableNames": [
+                                {
+                                  "name": "gasAfter",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "672:8:0"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "evmVersion": "istanbul",
+                        "externalReferences": [
+                          {
+                            "declaration": 3,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "611:7:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 20,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "638:14:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 17,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "623:13:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 14,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "672:8:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 11,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "557:9:0",
+                            "valueSize": 1
+                          },
+                          {
+                            "declaration": 24,
+                            "isOffset": false,
+                            "isSlot": false,
+                            "src": "588:7:0",
+                            "valueSize": 1
+                          }
+                        ],
+                        "id": 26,
+                        "nodeType": "InlineAssembly",
+                        "src": "534:165:0"
+                      },
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "id": 28,
+                              "name": "success",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 24,
+                              "src": "716:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              }
+                            },
+                            {
+                              "hexValue": "43616c6c206661696c65642c206275742063616c6c732077652077616e7420746f206d6561737572652067617320666f722073686f756c64207375636365656421",
+                              "id": 29,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "string",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "725:67:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_stringliteral_b2eba0b0108d1a01237756c3f24ed20260132ae42941c215f700c93fde18f9a6",
+                                "typeString": "literal_string \"Call failed, but calls we want to measure gas for should succeed!\""
+                              },
+                              "value": "Call failed, but calls we want to measure gas for should succeed!"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              {
+                                "typeIdentifier": "t_stringliteral_b2eba0b0108d1a01237756c3f24ed20260132ae42941c215f700c93fde18f9a6",
+                                "typeString": "literal_string \"Call failed, but calls we want to measure gas for should succeed!\""
+                              }
+                            ],
+                            "id": 27,
+                            "name": "require",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [
+                              -18,
+                              -18
+                            ],
+                            "referencedDeclaration": -18,
+                            "src": "708:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                              "typeString": "function (bool,string memory) pure"
+                            }
+                          },
+                          "id": 30,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "708:85:0",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 31,
+                        "nodeType": "ExpressionStatement",
+                        "src": "708:85:0"
+                      },
+                      {
+                        "expression": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 34,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 32,
+                            "name": "gasBefore",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 11,
+                            "src": "811:9:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "-",
+                          "rightExpression": {
+                            "id": 33,
+                            "name": "gasAfter",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "823:8:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "811:20:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "functionReturnParameters": 9,
+                        "id": 35,
+                        "nodeType": "Return",
+                        "src": "804:27:0"
+                      }
+                    ]
+                  },
+                  "functionSelector": "df0495a1",
+                  "id": 37,
+                  "implemented": true,
+                  "kind": "function",
+                  "modifiers": [],
+                  "name": "measureCallGas",
+                  "nodeType": "FunctionDefinition",
+                  "parameters": {
+                    "id": 6,
+                    "nodeType": "ParameterList",
+                    "parameters": [
+                      {
+                        "constant": false,
+                        "id": 3,
+                        "mutability": "mutable",
+                        "name": "_target",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 37,
+                        "src": "170:15:0",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "typeName": {
+                          "id": 2,
+                          "name": "address",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "170:7:0",
+                          "stateMutability": "nonpayable",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "visibility": "internal"
+                      },
+                      {
+                        "constant": false,
+                        "id": 5,
+                        "mutability": "mutable",
+                        "name": "_data",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 37,
+                        "src": "195:18:0",
+                        "stateVariable": false,
+                        "storageLocation": "memory",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes"
+                        },
+                        "typeName": {
+                          "id": 4,
+                          "name": "bytes",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "195:5:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes_storage_ptr",
+                            "typeString": "bytes"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "src": "160:59:0"
+                  },
+                  "returnParameters": {
+                    "id": 9,
+                    "nodeType": "ParameterList",
+                    "parameters": [
+                      {
+                        "constant": false,
+                        "id": 8,
+                        "mutability": "mutable",
+                        "name": "",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 37,
+                        "src": "253:7:0",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 7,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "253:7:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "src": "251:11:0"
+                  },
+                  "scope": 38,
+                  "src": "137:701:0",
+                  "stateMutability": "nonpayable",
+                  "virtual": false,
+                  "visibility": "public"
+                }
+              ],
+              "scope": 39,
+              "src": "103:737:0"
+            }
+          ],
+          "src": "71:770:0"
+        },
+        "id": 0
+      }
+    }
+  }
+}
