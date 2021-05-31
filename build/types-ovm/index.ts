@@ -8,6 +8,7 @@ export * from "./MockOvmBondManagerFactory";
 export * from "./OvmEcdsaContractAccountFactory";
 export * from "./OvmProxyEoaFactory";
 export * from "./OvmL1CrossDomainMessengerFactory";
+export * from "./OvmL1CustomCrossDomainMessengerFactory";
 export * from "./OvmL2CrossDomainMessengerFactory";
 export * from "./OvmL2DepositedErc20Factory";
 export * from "./OvmChainStorageContainerFactory";

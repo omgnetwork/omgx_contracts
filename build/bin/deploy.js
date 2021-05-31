@@ -8,8 +8,8 @@ const ethers_1 = require("ethers");
 const path_1 = __importDefault(require("path"));
 const directory_tree_1 = __importDefault(require("directory-tree"));
 const fs_1 = __importDefault(require("fs"));
-process.env.HARDHAT_NETWORK = 'custom';
-process.env.CONTRACTS_TARGET_NETWORK = 'custom';
+process.env.HARDHAT_NETWORK = 'rinkeby';
+process.env.CONTRACTS_TARGET_NETWORK = 'rinkeby';
 process.env.CONTRACTS_DEPLOYER_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 process.env.CONTRACTS_RPC_URL = process.env.L1_NODE_WEB3_URL || 'http://127.0.0.1:8545';
 const hardhat_1 = __importDefault(require("hardhat"));
@@ -38,11 +38,11 @@ const main = async () => {
         'Lib_AddressManager': 'AddressManager',
         'mockOVM_BondManager': 'OVM_BondManager'
     };
-    const contracts = directory_tree_1.default(path_1.default.resolve(__dirname, `../deployments/custom`)).children.filter((child) => {
+    const contracts = directory_tree_1.default(path_1.default.resolve(__dirname, `../deployments/rinkeby`)).children.filter((child) => {
         return child.extension === '.json';
     }).reduce((contracts, child) => {
         const contractName = child.name.replace('.json', '');
-        const artifact = require(path_1.default.resolve(__dirname, `../deployments/custom/${child.name}`));
+        const artifact = require(path_1.default.resolve(__dirname, `../deployments/rinkeby/${child.name}`));
         contracts[nicknames[contractName] || contractName] = artifact.address;
         return contracts;
     }, {});
