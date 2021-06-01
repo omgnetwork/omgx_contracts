@@ -6,6 +6,7 @@ export * from "./LibResolvedDelegateProxyFactory";
 export * from "./UniswapV2Erc20Factory";
 export * from "./MockOvmBondManagerFactory";
 export * from "./OvmL1CrossDomainMessengerFactory";
+export * from "./OvmL1CustomCrossDomainMessengerFactory";
 export * from "./OvmL1MultiMessageRelayerFactory";
 export * from "./OvmL2CrossDomainMessengerFactory";
 export * from "./OvmL1Erc20GatewayFactory";
